@@ -72,8 +72,8 @@ function ProgressBar({ milestones }) {
 						left={`calc(${
 							((index + 1) / (milestones.length + 1)) * 100
 						}% - 12px)`}
-						top="calc(52%)"
-						transform="translateY(-50%)"
+						top="calc(45%)"
+						// transform="translateY(-60%)"
 						zIndex="1"
 						textAlign="center"
 					>

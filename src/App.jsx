@@ -30,7 +30,7 @@ function App() {
 		<ChakraProvider>
 			<Container>
 				<Stack
-					p={20}
+					p={{base: 5, md: 10}}
 					minH={"100vh"}
 					alignContent="center"
 					justifyContent="center"

@@ -2,8 +2,7 @@
 
 # ProgressBar Project
 
-The ProgressBar project is a React component that provides a customizable progress bar with milestone markers. It is built using React and Chakra UI for styling. 
-
+The ProgressBar project is a React component that provides a customizable progress bar with milestone markers. It is built using React and Chakra UI for styling.
 
 ## Features
 
@@ -27,66 +26,59 @@ To use the ProgressBar component in your React application, follow these steps:
 2. Import the ProgressBar component into your project:
 
    ```javascript
-   import ProgressBar from './ProgressBar';
+   import ProgressBar from "./ProgressBar";
    ```
 
 3. Pass the required props to the ProgressBar component:
 
    ```javascript
-   <ProgressBar
-     milestones={milestones}
-     currentProgress={currentProgress}
-     calculateProgress={calculateProgress}
-     progress={progress}
-   />
+   <ProgressBar milestones={milestones} />
    ```
 
 4. Customize the ProgressBar component by adjusting the milestone values and styling as needed.
 
 ## Props
+Only one prop is required and that is the milestones array of objects.
 
 - `milestones`: An array of milestone objects with `value` properties representing the milestone values. The positions of the milestones are calculated dynamically.
-- `currentProgress`: The current progress value.
-- `calculateProgress`: A function to calculate the progress.
-- `progress`: The progress percentage.
+
 
 ## Example
 
 Here's an example of how you can use the ProgressBar component:
 
 ```javascript
-import React, { useState, useEffect } from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
-import ProgressBar from './ProgressBar';
+import React, { useState, useEffect } from "react";
+import { ChakraProvider } from "@chakra-ui/react";
+import ProgressBar from "./ProgressBar";
 
 function App() {
-  const [milestones, setMilestones] = useState([
-    { value: 100 },
-    { value: 300 },
-    { value: 500 },
-    { value: 800 },
-    { value: 1200 }
-  ]);
-  const [currentProgress, setCurrentProgress] = useState(0);
-  const [progress, setProgress] = useState(0);
+	const [milestones, setMilestones] = useState([
+		{ value: 100 },
+		{ value: 300 },
+		{ value: 500 },
+		{ value: 800 },
+		{ value: 1200 },
+	]);
 
-  // Define calculateProgress function
+	const [newMilestoneValue, setNewMilestoneValue] = useState("");
 
-  useEffect(() => {
-    // Calculate progress
-    calculateProgress();
-  }, [milestones, currentProgress]);
+	const handleAddMilestone = () => {
+		if (newMilestoneValue != "") {
+			const newMilestone = {
+				value: parseInt(newMilestoneValue),
+			};
 
-  return (
-    <ChakraProvider>
-      <ProgressBar
-        milestones={milestones}
-        currentProgress={currentProgress}
-        calculateProgress={calculateProgress}
-        progress={progress}
-      />
-    </ChakraProvider>
-  );
+			setMilestones([...milestones, newMilestone]);
+			setNewMilestoneValue("");
+		}
+	};
+
+	return (
+		<ChakraProvider>
+			<ProgressBar milestones={milestones} />
+		</ChakraProvider>
+	);
 }
 
 export default App;

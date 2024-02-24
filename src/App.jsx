@@ -14,7 +14,7 @@ import "./App.css";
 function App() {
 	const [milestones, setMilestones] = useState([]);
 	const [newMilestoneValue, setNewMilestoneValue] = useState("");
-
+	
 	const handleAddMilestone = () => {
 		if (newMilestoneValue != "") {
 			const newMilestone = {
@@ -26,17 +26,36 @@ function App() {
 		}
 	};
 
+	//If user wants to use default values
+	const [isDefault, setIsDefault ] = useState(true);
+	const defaultMilestones = [
+		{ value: 500 },
+		{ value: 1200 },
+		{ value: 2100 },
+		{ value: 4500 },
+	];
+	const handleDefaultMilestones = () => {
+		setIsDefault(!isDefault)
+		if (isDefault) {
+			setMilestones(defaultMilestones)
+		} else {
+			setMilestones([])
+		}
+	}
+
+	
+
 	return (
 		<ChakraProvider>
 			<Container>
 				<Stack
-					p={{base: 5, md: 10}}
+					p={{ base: 5, md: 10 }}
 					minH={"100vh"}
 					alignContent="center"
 					justifyContent="center"
 				>
-					<ProgressBar milestones={milestones}/>
-					
+					<ProgressBar milestones={milestones} />
+
 					<HStack mt={4} alignItems="center" justifyContent={"space-between"}>
 						<Input
 							type="number"
@@ -54,6 +73,9 @@ function App() {
 							Add Milestone
 						</Button>
 					</HStack>
+					<Button colorScheme={isDefault ? "teal" : "orange"} onClick={handleDefaultMilestones}>
+						{isDefault ? "Use" : "Remove" } Default Milestones
+					</Button>
 				</Stack>
 			</Container>
 		</ChakraProvider>

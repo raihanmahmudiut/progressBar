@@ -7,6 +7,10 @@ import {
 	Divider,
 	Flex,
 	Input,
+	Slider,
+	SliderTrack,
+	SliderFilledTrack,
+	SliderThumb,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 
@@ -27,6 +31,17 @@ function ProgressBar({ milestones }) {
 			calculateProgress();
 		}
 	};
+
+	const handleSliderChange = (value) => { 
+		let sliderValue = parseFloat(value)
+		setCurrentProgress(sliderValue);
+		if (sliderValue === "") {
+			setProgress(0);
+		} else {
+			calculateProgress();
+		 }
+
+	}
 
 	const calculateProgress = () => {
 		let prevMilestone = 0;
@@ -71,8 +86,8 @@ function ProgressBar({ milestones }) {
 						position="absolute"
 						left={`calc(${
 							((index + 1) / (milestones.length + 1)) * 100
-						}% - 12px)`}
-						top="calc(45%)"
+						}% - 20px)`}
+						top="calc(40%)"
 						// transform="translateY(-60%)"
 						zIndex="1"
 						textAlign="center"
@@ -83,8 +98,8 @@ function ProgressBar({ milestones }) {
 							borderColor="green.500"
 							bg={milestoneCompleted ? "green.500" : "white"}
 							color={milestoneCompleted ? "white" : "green.500"}
-							h="2rem"
-							w="2rem"
+							h="2.5rem"
+							w="2.5rem"
 							display="flex"
 							alignItems="center"
 							justifyContent="center"
@@ -98,12 +113,24 @@ function ProgressBar({ milestones }) {
 				);
 			})}
 			<Divider my={5} />
-			<Flex alignItems="center">
+			<Flex alignItems="center"  direction={"column"}>
+				<Slider
+					onChange={handleSliderChange}
+					min={0}
+					max={
+						milestones.length > 0 ? milestones[milestones.length - 1].value + 100 : 100
+					}
+				>
+					<SliderTrack>
+						<SliderFilledTrack/>
+					</SliderTrack>
+					<SliderThumb />
+				</Slider>
 				<Input
 					type="number"
 					placeholder="Enter current progress"
 					value={currentProgress}
-					onChange={(e) => handleProgressChange(e)}
+					onChange={handleProgressChange}
 					mt={4}
 					mr={2}
 				/>

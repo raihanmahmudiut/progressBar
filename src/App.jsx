@@ -73,7 +73,7 @@ function App() {
 							Add Milestone
 						</Button>
 					</HStack>
-					<Button colorScheme={isDefault ? "teal" : "orange"} onClick={handleDefaultMilestones}>
+					<Button colorScheme={"teal"} onClick={handleDefaultMilestones}>
 						{isDefault ? "Use" : "Remove" } Default Milestones
 					</Button>
 				</Stack>

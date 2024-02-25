@@ -13,6 +13,7 @@ import {
 	SliderThumb,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
+import { MdCatchingPokemon } from "react-icons/md";
 
 function ProgressBar({ milestones }) {
 	const [currentProgress, setCurrentProgress] = useState(0);
@@ -20,6 +21,10 @@ function ProgressBar({ milestones }) {
 
 	useEffect(() => {
 		calculateProgress();
+		if (milestones.length == 0) {
+			setCurrentProgress(0);
+			setProgress(0);
+		}
 	}, [milestones, currentProgress]);
 
 	const handleProgressChange = (event) => {
@@ -32,16 +37,15 @@ function ProgressBar({ milestones }) {
 		}
 	};
 
-	const handleSliderChange = (value) => { 
-		let sliderValue = parseFloat(value)
+	const handleSliderChange = (value) => {
+		let sliderValue = parseFloat(value);
 		setCurrentProgress(sliderValue);
 		if (sliderValue === "") {
 			setProgress(0);
 		} else {
 			calculateProgress();
-		 }
-
-	}
+		}
+	};
 
 	const calculateProgress = () => {
 		let prevMilestone = 0;
@@ -113,18 +117,23 @@ function ProgressBar({ milestones }) {
 				);
 			})}
 			<Divider my={5} />
-			<Flex alignItems="center"  direction={"column"}>
+			<Flex alignItems="center" direction={"column"}>
 				<Slider
+					defaultValue={0}
 					onChange={handleSliderChange}
 					min={0}
 					max={
-						milestones.length > 0 ? milestones[milestones.length - 1].value + 100 : 100
+						milestones.length > 0
+							? milestones[milestones.length - 1].value + 100
+							: 100
 					}
 				>
-					<SliderTrack>
-						<SliderFilledTrack/>
+					<SliderTrack bg="red.100">
+						<SliderFilledTrack bg="tomato" />
 					</SliderTrack>
-					<SliderThumb />
+					<SliderThumb boxSize={6}>
+						<Box color="tomato" as={MdCatchingPokemon} />
+					</SliderThumb>
 				</Slider>
 				<Input
 					type="number"

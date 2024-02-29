@@ -26,21 +26,23 @@ To use the ProgressBar component in your React application, follow these steps:
 2. Import the ProgressBar component into your project:
 
    ```javascript
-   import ProgressBar from "./ProgressBar";
+   import ProgressBar from "./progressBar";
    ```
 
 3. Pass the required props to the ProgressBar component:
 
    ```javascript
-   <ProgressBar milestones={milestones} />
+   <ProgressBar milestones={milestones} currentProgress={currentProgress} />
    ```
 
 4. Customize the ProgressBar component by adjusting the milestone values and styling as needed.
 
 ## Props
-Only one prop is required and that is the milestones array of objects.
+Only two props are required.
 
 - `milestones`: An array of milestone objects with `value` properties representing the milestone values. The positions of the milestones are calculated dynamically.
+
+- `currentProgress`: the currentProgress which is any value that you're intending to set milestones for. It can be the customer's total purchase or a player's total XP.
 
 
 ## Example
@@ -53,30 +55,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import ProgressBar from "./ProgressBar";
 
 function App() {
-	const [milestones, setMilestones] = useState([
-		{ value: 100 },
-		{ value: 300 },
-		{ value: 500 },
-		{ value: 800 },
-		{ value: 1200 },
-	]);
-
-	const [newMilestoneValue, setNewMilestoneValue] = useState("");
-
-	const handleAddMilestone = () => {
-		if (newMilestoneValue != "") {
-			const newMilestone = {
-				value: parseInt(newMilestoneValue),
-			};
-
-			setMilestones([...milestones, newMilestone]);
-			setNewMilestoneValue("");
-		}
-	};
+	
+	//Add necessary functions and states for handling currentProgress value and milestones array of objects.
 
 	return (
 		<ChakraProvider>
-			<ProgressBar milestones={milestones} />
+			<ProgressBar milestones={milestones} currentProgress={currentProgress} />
 		</ChakraProvider>
 	);
 }

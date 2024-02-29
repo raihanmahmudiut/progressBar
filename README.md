@@ -4,6 +4,8 @@
 
 The ProgressBar project is a React component that provides a customizable progress bar with milestone markers. It is built using React and Chakra UI for styling.
 
+`Note`: If you prefer to use your own styles and framework, you can switch to the raw-css-version branch.
+
 ## Features
 
 - **Dynamic Progress Bar**: The progress bar adjusts its width based on the current progress.

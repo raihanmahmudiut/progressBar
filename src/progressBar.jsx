@@ -1,19 +1,5 @@
-import { CheckIcon } from "@chakra-ui/icons";
-import {
-	Box,
-	Divider,
-	Flex,
-	Icon,
-	Input,
-	Progress,
-	Slider,
-	SliderFilledTrack,
-	SliderThumb,
-	SliderTrack,
-	Text,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { MdCatchingPokemon } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import "./styles.css";
 
 function ProgressBar({ milestones, currentProgress }) {
 	const [progress, setProgress] = useState();
@@ -23,7 +9,7 @@ function ProgressBar({ milestones, currentProgress }) {
 		milestones.forEach((milestone, i) => {
 			milestone.position = ((i + 1) / (milestones.length + 1)) * 100;
 		});
-		if (milestones.length == 0) {
+		if (milestones.length === 0) {
 			setProgress(0);
 		}
 	}, [milestones, currentProgress]);
@@ -69,49 +55,46 @@ function ProgressBar({ milestones, currentProgress }) {
 
 	const milestonesAvailable = milestones.length !== 0;
 	return (
-		<Box textAlign="center" position="relative">
-			<Text>
+		<div className="progress-bar-container">
+			<p>
 				Milestones:{" "}
 				{milestonesAvailable &&
 					milestones.map((milestone) => milestone.value).join(", ")}
-			</Text>
-			<Divider my={10} />
-			<Progress value={progress} colorScheme="green" />
-			{milestones.map((milestone, index) => {
-				const milestoneCompleted = currentProgress >= milestone.value;
-				return (
-					<Box
-						key={index}
-						position="absolute"
-						left={`calc(${
-							((index + 1) / (milestones.length + 1)) * 100
-						}% - 20px)`}
-						top="calc(78%)"
-						// transform="translateY(-60%)"
-						zIndex="1"
-						textAlign="center"
-					>
-						<Box
-							borderRadius="full"
-							borderWidth="1px"
-							borderColor="green.500"
-							bg={milestoneCompleted ? "green.500" : "white"}
-							color={milestoneCompleted ? "white" : "green.500"}
-							h="2.5rem"
-							w="2.5rem"
-							display="flex"
-							alignItems="center"
-							justifyContent="center"
+			</p>
+			<div className="divider"></div>
+			<div className="progress-bar">
+				<div
+					className="progress-bar-fill"
+					style={{ width: `${progress}%`, backgroundColor: "green" }}
+				></div>
+				{milestones.map((milestone, index) => {
+					const milestoneCompleted = currentProgress >= milestone.value;
+					return (
+						<div
+							key={index}
+							className="progress-bar-milestones"
+							style={{
+								left: `calc(${
+									((index + 1) / (milestones.length + 1)) * 100
+								}% - 20px)`,
+							}}
 						>
-							<Icon
-								as={CheckIcon}
-								color={milestoneCompleted ? "white" : "green.500"}
-							/>
-						</Box>
-					</Box>
-				);
-			})}
-		</Box>
+							<div
+								className={`progress-bar-milestone ${
+									milestoneCompleted ? "completed" : ""
+								}`}
+								style={{
+									backgroundColor: milestoneCompleted ? "green" : "white",
+									color: milestoneCompleted ? "white" : "green",
+								}}
+							>
+								<span>{milestoneCompleted ? "✓" : ""}</span>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</div>
 	);
 }
 
